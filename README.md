@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Singular Agency
 
-## Getting Started
+Site institucional da Singular Agency — Next.js 16 (App Router) + Tailwind v4, seguindo o design system em [`singular-agency-style-reference.md`](./singular-agency-style-reference.md).
 
-First, run the development server:
+## Rodando localmente
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 16** (App Router, Turbopack) + React 19
+- **Tailwind CSS v4** — tokens da marca em `src/app/globals.css` (`@theme`)
+- **General Sans** via [Fontshare](https://api.fontshare.com) — carregada por `<link>` no `layout.tsx` (não é self-hosted: a licença da ITF exige autorização por escrito para redistribuir os arquivos da fonte, então não dá pra usar `next/font/local`)
+- **Server Actions** para o formulário de contato (`src/lib/actions.ts`) — envia via [Resend](https://resend.com) quando `RESEND_API_KEY`/`CONTACT_FORM_TO_EMAIL` estão configuradas (ver `.env.example`); sem isso, a submissão só é logada no servidor
 
-## Learn More
+## Estrutura
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/            rotas (App Router), layout, metadata, sitemap.ts, robots.ts
+  components/      componentes de UI (Header, Hero, cards, etc.)
+  components/primitives/  elementos de assinatura visual (Signature Dash, Orbit Dot Pair, Blueprint Grid, Radial Glow)
+  content/         copy.pt-BR.ts — fonte central de todo texto do site (ver regra em style-reference.md)
+  lib/             server actions
+public/images/
+  logo/            assets oficiais de logo (processados para fundo transparente)
+  photography/     imagens geradas via Higgsfield seguindo o brief de estilo da marca
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## O que já está implementado
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Home completa: header sticky, hero, logo marquee, grid de serviços, dark statement blocks, stats com count-up, case cards, testimonial, formulário de contato e mega footer.
 
-## Deploy on Vercel
+## Próximos passos
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Páginas de serviço profundas (`/servicos/google-ads`, etc.)
+- Hub de recursos/blog (`/recursos`)
+- Páginas de case individuais
+- JSON-LD adicional (`Service`, `FAQPage`, `BreadcrumbList`) nas páginas internas conforme forem criadas
