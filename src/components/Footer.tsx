@@ -5,7 +5,9 @@ import { CopyButton } from "@/components/CopyButton";
 import { InstagramIcon, LinkedinIcon } from "@/components/icons";
 
 export function Footer() {
-  const { footer } = copy;
+  const { footer, company } = copy;
+  const addressLine = `${company.address.street} — ${company.address.complement}, ${company.address.neighborhood}, ${company.address.city}/${company.address.stateCode}, CEP ${company.address.zip}`;
+
   return (
     <footer className="bg-deep-ink">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-6 border-b border-white/10 px-6 py-16 md:px-12">
@@ -13,7 +15,7 @@ export function Footer() {
           {footer.ctaHeadline}
         </h2>
         <a
-          href="#contato"
+          href="/contato"
           className="rounded-full bg-orange px-8 py-4 text-[14px] font-bold uppercase tracking-[0.04em] text-white transition-colors hover:bg-orange-hover"
         >
           {footer.cta}
@@ -25,14 +27,17 @@ export function Footer() {
           <Image
             src="/images/logo/singular-lockup-horizontal-white.png"
             alt={copy.meta.siteName}
-            width={220}
-            height={73}
+            width={1945}
+            height={202}
             className="mb-4 h-6 w-auto"
           />
           <p className="mb-3 text-sm leading-relaxed text-white/75">{footer.about}</p>
+          <p className="mb-4 max-w-[320px] text-xs leading-relaxed text-white/45">
+            {addressLine}
+          </p>
           <div className="flex flex-col items-start gap-2">
-            <CopyButton value={footer.email} />
-            <CopyButton value={footer.phone} />
+            <CopyButton value={company.email} />
+            <CopyButton value={company.phoneDisplay} />
           </div>
         </div>
 
@@ -57,30 +62,34 @@ export function Footer() {
         ))}
       </div>
 
-      <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-between gap-4 border-t border-white/10 px-6 pb-10 pt-8 text-[13px] text-white/40 md:px-12">
-        <p>{footer.copyright}</p>
-        <div className="flex flex-wrap gap-6">
-          {footer.legal.map((link) => (
-            <Link key={link.label} href={link.href} className="hover:text-white/70">
-              {link.label}
-            </Link>
-          ))}
-        </div>
-        <div className="flex gap-3.5" aria-label="Redes sociais">
-          <a
-            href="#"
-            aria-label="Instagram"
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/6"
-          >
-            <InstagramIcon className="h-4 w-4 stroke-white/75" />
-          </a>
-          <a
-            href="#"
-            aria-label="LinkedIn"
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/6"
-          >
-            <LinkedinIcon className="h-4 w-4 stroke-white/75" />
-          </a>
+      <div className="mx-auto max-w-[1320px] border-t border-white/10 px-6 pt-8 text-[13px] text-white/40 md:px-12">
+        <p className="mb-6 max-w-[760px] leading-relaxed">{footer.legalEntityLine}</p>
+
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-10">
+          <p>{footer.copyright}</p>
+          <div className="flex flex-wrap gap-6">
+            {footer.legal.map((link) => (
+              <Link key={link.label} href={link.href} className="hover:text-white/70">
+                {link.label}
+              </Link>
+            ))}
+          </div>
+          <div className="flex gap-3.5" aria-label="Redes sociais">
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/6"
+            >
+              <InstagramIcon className="h-4 w-4 stroke-white/75" />
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/6"
+            >
+              <LinkedinIcon className="h-4 w-4 stroke-white/75" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

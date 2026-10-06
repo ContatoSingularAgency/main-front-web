@@ -23,22 +23,21 @@ export function Header() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-[1320px] items-center justify-between gap-4 px-6 md:px-12">
-        <Link href="/" className="flex items-center">
-          <Image 
+        <Link href="/" className="flex items-center gap-2.5">
+          <Image
             src="/images/logo/singular-mark.png"
-            alt={copy.meta.siteName}
-            width={220}
-            height={73}
-            className="h-14 w-auto"
-
+            alt=""
+            width={1254}
+            height={1254}
+            className="h-10 w-auto"
           />
           <Image
             src="/images/logo/singular-lockup-horizontal.png"
             alt={copy.meta.siteName}
-            width={220}
-            height={73}
+            width={1945}
+            height={202}
             priority
-            className="h-14 w-auto"
+            className="h-6 w-auto"
           />
         </Link>
 
@@ -56,7 +55,7 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <a
-            href="#contato"
+            href="/contato"
             className="hidden rounded-full bg-orange px-6 py-3 text-[13px] font-bold uppercase tracking-[0.04em] text-white transition-colors hover:bg-orange-hover sm:inline-block"
           >
             {copy.nav.cta}
@@ -91,7 +90,7 @@ export function Header() {
             </a>
           ))}
           <a
-            href="#contato"
+            href="/contato"
             onClick={() => setMenuOpen(false)}
             className="mt-2 rounded-full bg-orange px-6 py-3 text-center text-[13px] font-bold uppercase tracking-[0.04em] text-white sm:hidden"
           >

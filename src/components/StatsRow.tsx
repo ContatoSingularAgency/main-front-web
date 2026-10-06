@@ -14,14 +14,19 @@ function StatNumber({
   decimals: number;
 }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const [display, setDisplay] = useState(() =>
-    typeof IntersectionObserver === "undefined" ? value : 0,
-  );
+  // Starts at 0 on both server and client so SSR/hydration markup matches —
+  // it counts up to `value` once in view (or immediately post-mount as a
+  // fallback when IntersectionObserver isn't supported).
+  const [display, setDisplay] = useState(0);
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (!el) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const raf = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(raf);
+    }
     const io = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started) {
